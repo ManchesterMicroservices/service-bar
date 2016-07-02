@@ -1,0 +1,22 @@
+template: Hello, %s!
+defaultName: ${BAR_DEFAULT_NAME:-Stranger}
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 10500
+  adminConnectors:
+    - type: http
+      port: 10501
+      bindHost: 127.0.0.1
+
+consul:
+  registration:
+    serviceName: bar
+    services:
+    - serviceTag: service
+      port: 10500
+      healthCheckUrl: http://localhost:10501/healthcheck
+    - serviceTag: admin
+      port: 10501
+
